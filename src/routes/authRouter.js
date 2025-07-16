@@ -42,41 +42,41 @@ authRouter.post("/signup", async (req, res) => {
 
 // Login API
 authRouter.post("/login", async (req, res) => {
-    try{
-        const {emailId, password} = req.body; 
+  try {
+    const { emailId, password } = req.body;
 
-
-        //check if user with that emailId exists in our database or not
-
-        const user = await User.findOne({emailId : emailId})
-        if(!user){
-            throw new Error("Invalid credentials");
-        }
-
-        //check if entered password is correct
-
-        const isPasswordValid = await user.validatePassword(password);
-
-        if(isPasswordValid){
-
-            //Create a JWT token
-            const token = await user.getJWT();
-            
-
-            //Add the token to the cookie and send the response back to the user
-            res.cookie("token", token, {expires : new Date(Date.now() + 8 * 3600000)});
-
-
-            res.send({ data: user });
-        }
-        else{
-            throw new Error("Incorrect Password");
-        }
+    const user = await User.findOne({ emailId });
+    if (!user) {
+      throw new Error("Invalid credentials");
     }
-    catch (err){
-        res.status(400).send("Error logging in: " + err.message);
+
+    const isPasswordValid = await user.validatePassword(password);
+
+    if (isPasswordValid) {
+      const token = await user.getJWT();
+
+      res.cookie("token", token, {
+        httpOnly: true,
+        expires: new Date(Date.now() + 8 * 3600000),
+      });
+
+      res.send({
+        message: "Login successful",
+        token, // ✅ Send token to frontend
+        user: {
+          _id: user._id,
+          firstName: user.firstName,
+          lastName: user.lastName,
+          emailId: user.emailId,
+        },
+      });
+    } else {
+      throw new Error("Incorrect Password");
     }
-})
+  } catch (err) {
+    res.status(400).send("Error logging in: " + err.message);
+  }
+});
 
 //Logout API
 authRouter.post("/logout", async (req, res) => {

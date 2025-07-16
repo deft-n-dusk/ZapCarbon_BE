@@ -54,9 +54,10 @@ userSchema.index({ firstName: 1, lastName: 1 });
 // JWT generation
 userSchema.methods.getJWT = async function () {
   const user = this;
-  const token = await jwt.sign({ _id: user._id }, process.env.JWT_SECRET || "your_default_secret", {
-    expiresIn: "7d",
-  });
+  const token = await jwt.sign({ _id: user._id }, "ZAP@CARBON$2713", {
+  expiresIn: "7d",
+});
+
   return token;
 };
 
