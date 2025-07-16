@@ -34,16 +34,6 @@ const userSchema = new mongoose.Schema({
       }
     },
   },
-  photoUrl: {
-    type: String,
-    default:
-      "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png",
-    validate(value) {
-      if (!validator.isURL(value)) {
-        throw new Error("photoURL is not valid");
-      }
-    },
-  },
 }, {
   timestamps: true,
 });
