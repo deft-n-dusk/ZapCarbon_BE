@@ -1,18 +1,17 @@
 module.exports = {
-  car_travel: (data) => data.distance * 0.21, // kg CO2 per km
-  flight: (data) => data.distance * 0.15,
-  electricity_usage: (data) => data.kwh * 0.7,
-  natural_gas_usage: (data) => data.therms * 5.3,
-  public_transport: (data) => data.distance * 0.1,
-  meat_consumption: (data) => data.kg * 27,
-  waste_generated: (data) => data.kg * 0.6,
-  water_usage: (data) => data.liters * 0.0005,
-  bus_travel: (data) => data.distance * 0.1,
-  train_travel: (data) => data.distance * 0.05,
-  motorcycle_travel: (data) => data.distance * 0.12,
-  lpg_usage: (data) => data.kg * 2.98,
-  coal_usage: (data) => data.kg * 2.5,
-  paper_usage: (data) => data.kg * 1.8,
-  recycling: (data) => data.kg * -0.9 // negative because it's eco-friendly
+  car_travel: (data) => data.distance * 0.1213,       // kg CO2/km (average petrol/diesel new passenger cars in India - FY 2020-21)
+  flight: (data) => data.distance * 0.121,             // kg CO2/km (domestic economy flight in India - passenger-km)
+  electricity_usage: (data) => data.kwh * 0.82,      // kg CO2/kWh (India grid average based on FY 2021-22 and subsequent analyses) (Note: Some data suggests even lower in 2024-25, consider checking the most recent CEA reports.)
+  natural_gas_usage: (data) => data.therms * 5.3,    // kg CO2/therm (general factor - use with caution as natural gas usage is less common in India)
+  public_transport: (data) => data.distance * 0.015161,  // kg CO2/km per passenger (average bus - intracity)
+  meat_consumption: (data) => data.kg * 2.59,         // kg CO2/kg (chicken, LCA Study)
+  waste_generated: (data) => data.kg * 1.725,          // kg CO2/kg (based on a study of unmanaged landfill sites in Bangalore, likely higher for other areas)
+  water_usage: (data) => data.liters * 0.00035,      // kg CO2/litre (Estimation, can vary significantly due to water source, treatment, and distribution methods)
+  bus_travel: (data) => data.distance * 0.015161,        // kg CO2/km per passenger (diesel bus - intracity)
+  train_travel: (data) => data.distance * 0.007837,     // kg CO2/km per passenger (Non-Suburban)
+  motorcycle_travel: (data) => data.distance * 0.029, // kg CO2/km (motorcycle <125 CC)
+  lpg_usage: (data) => data.kg * 2.983,                // kg CO2/kg LPG (GHG Protocol)
+  coal_usage: (data) => data.kg * 2.2,               // kg CO2/kg (average Indian coal, highly variable)
+  paper_usage: (data) => data.kg * 1.8,              // kg CO2/kg (Global average, may be higher or lower for specific types of paper or regions.)
+  recycling: (data) => data.kg * -0.9                // kg CO2/kg saved (approximate average, varies with material)
 };
-
