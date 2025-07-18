@@ -28,14 +28,18 @@ app.use("/api/summary", summaryRouter);
 app.use("/auth", require("./routes/authCheckRouter"));
 
 
+// Connect to database and start server
+const PORT = process.env.PORT || 2707;
+
 connectDB()
-        .then(() => {
-            console.log("Database connection established...");
-            app.listen(2707, () => {
-            console.log("Server is successfully listening on port 2707");
-            });
-        })
-        .catch((err) => {
-            console.error("Database cannot be connected");
-        });
+  .then(() => {
+    console.log("Database connection established...");
+    app.listen(PORT, () => {
+      console.log(`Server is successfully listening on port ${PORT}`);
+    });
+  })
+  .catch((err) => {
+    console.error("Database cannot be connected", err);
+  });
+
 
