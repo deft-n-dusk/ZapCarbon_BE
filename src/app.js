@@ -7,10 +7,14 @@ const cors = require("cors");
 
 app.use(
   cors({
-    origin: "http://localhost:5173", // your frontend origin
+    origin: [
+      "http://localhost:5173", // local dev
+      "https://zap-carbon-ui.vercel.app" // deployed frontend
+    ],
     credentials: true,
   })
 );
+
 
 app.use(cookieParser());
 app.use(express.json());
